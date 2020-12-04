@@ -2,7 +2,7 @@ import dayjs from 'dayjs'
 
 import TableList from './TableList'
 
-function Posts({ postsData }) {
+function Posts({ posts }) {
   const columns = [
     {
       key: 'title',
@@ -18,7 +18,13 @@ function Posts({ postsData }) {
     },
   ]
 
-  return <TableList dataSource={postsData} columns={columns} rowKey="id" />
+  return (
+    <TableList
+      dataSource={posts.data}
+      columns={columns}
+      pagination={posts.meta.pagination}
+    />
+  )
 }
 
 export default Posts

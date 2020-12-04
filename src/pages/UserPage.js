@@ -13,7 +13,7 @@ function UserPage() {
   return (
     <PageLayout title="User Page">
       {isLoading && <div>Loading...</div>}
-      {!isLoading && <Users usersData={data.data} />}
+      {!isLoading && <Users users={data} />}
     </PageLayout>
   )
 }

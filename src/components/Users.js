@@ -1,6 +1,6 @@
 import TableList from './TableList'
 
-function Users({ usersData }) {
+function Users({ users }) {
   const columns = [
     {
       key: 'name',
@@ -20,7 +20,13 @@ function Users({ usersData }) {
     },
   ]
 
-  return <TableList dataSource={usersData} columns={columns} rowKey="id" />
+  return (
+    <TableList
+      dataSource={users.data}
+      columns={columns}
+      pagination={users.meta.pagination}
+    />
+  )
 }
 
 export default Users
