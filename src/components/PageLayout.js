@@ -4,7 +4,7 @@ import routes from '../pages/routes'
 
 function PageLayout({ title, children }) {
   return (
-    <div className="container lg:mx-auto p-4">
+    <div className="container lg:mx-auto p-4 pb-24">
       {title && <h1 className="text-5xl font-bold mb-12">{title}</h1>}
       <ul className="mb-8">
         {routes.map((route) => (
