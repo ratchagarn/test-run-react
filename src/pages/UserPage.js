@@ -5,20 +5,14 @@ import Users from '../components/Users'
 
 import usePageQuery from '../hooks/usePageQuery'
 
+import { fetchData } from '../helpers/utils'
+
 function UserPage() {
-  const {
-    pageQuery: { page },
-  } = usePageQuery()
-
-  let url = 'https://gorest.co.in/public-api/users'
-
-  if (/\d/.test(page)) {
-    url += '?page=' + page
-  }
+  const { pageQuery } = usePageQuery()
 
   const { isLoading, error, data } = usePaginatedQuery(
-    ['usersData', page],
-    () => fetch(url).then((res) => res.json())
+    ['usersData', pageQuery.page],
+    () => fetchData('https://gorest.co.in/public-api/users', pageQuery)
   )
 
   if (error) return 'An error has occurred: ' + error.message
