@@ -1,11 +1,24 @@
-import { useQuery } from 'react-query'
+import { usePaginatedQuery } from 'react-query'
 
 import PageLayout from '../components/PageLayout'
 import Users from '../components/Users'
 
+import usePageQuery from '../hooks/usePageQuery'
+
 function UserPage() {
-  const { isLoading, error, data } = useQuery('repoData', () =>
-    fetch('https://gorest.co.in/public-api/users').then((res) => res.json())
+  const {
+    pageQuery: { page },
+  } = usePageQuery()
+
+  let url = 'https://gorest.co.in/public-api/users'
+
+  if (/\d/.test(page)) {
+    url += '?page=' + page
+  }
+
+  const { isLoading, error, data } = usePaginatedQuery(
+    ['usersData', page],
+    () => fetch(url).then((res) => res.json())
   )
 
   if (error) return 'An error has occurred: ' + error.message

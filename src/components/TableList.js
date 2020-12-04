@@ -1,6 +1,8 @@
+import { Link } from 'react-router-dom'
 import classNames from 'classnames'
+import range from 'lodash/range'
 
-function TableList({ dataSource, columns, pagination }) {
+function TableList({ dataSource, columns, pagination, onPaginationChange }) {
   return (
     <>
       <table className="table-auto border-collapse w-full bg-white">
@@ -43,9 +45,29 @@ function TableList({ dataSource, columns, pagination }) {
         </tbody>
       </table>
 
-      <div className="mt-4"></div>
+      <div className="flex flex-wrap mt-8">
+        {range(1, pagination.pages).map((page) =>
+          pagination.page === page ? (
+            <span key={page} className="flex-initial m-1 font-bold text-lg">
+              {page}
+            </span>
+          ) : (
+            <Link
+              key={page}
+              className="flex-initial m-1 text-blue-600 hover:underline cursor-pointer text-lg"
+              to={`?page=${page}`}
+            >
+              {page}
+            </Link>
+          )
+        )}
+      </div>
     </>
   )
+}
+
+TableList.defaultProps = {
+  onPaginationChange: () => {},
 }
 
 export default TableList
