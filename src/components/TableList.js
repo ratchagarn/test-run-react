@@ -33,31 +33,6 @@ function TableList({ dataSource, columns, rowKey }) {
           </tr>
         ))}
       </tbody>
-      {/* <tbody>
-        {columns.map((column) => {
-          const { align, render = () => {} } = column
-
-          const tdClassName = classNames('p-4', {
-            'text-left': align === 'left',
-            'text-center': align === 'center',
-            'text-right': align === 'right',
-          })
-
-          return (
-            dataSource.map((data) => (
-              <tr key={data.id}>
-                {Object.keys(data).map((dataKey) => {
-                  const rowData = data[dataKey]
-
-                  return (
-                    <td key={dataKey} className={tdClassName}>{render(rowData)}</td>
-                  )
-                })}
-              </tr>
-            ))
-          )
-        })}
-      </tbody> */}
     </table>
   )
 }
