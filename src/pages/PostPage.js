@@ -1,21 +1,21 @@
-import PageLayout from '../components/PageLayout'
+import { useQuery } from 'react-query'
 
-function PostPage() {
+import PageLayout from '../components/PageLayout'
+import Posts from '../components/Posts'
+
+function UserPage() {
+  const { isLoading, error, data } = useQuery('repoData', () =>
+    fetch('https://gorest.co.in/public-api/posts').then((res) => res.json())
+  )
+
+  if (error) return 'An error has occurred: ' + error.message
+
   return (
     <PageLayout title="Post Page">
-      <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
-      </p>
+      {isLoading && <div>Loading...</div>}
+      {!isLoading && <Posts postsData={data.data} />}
     </PageLayout>
   )
 }
 
-export default PostPage
+export default UserPage
