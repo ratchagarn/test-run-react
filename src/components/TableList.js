@@ -2,7 +2,7 @@ import classNames from 'classnames'
 
 function TableList({ dataSource, columns, rowKey }) {
   return (
-    <table className="table-auto border-collapse w-full bg-gray-50">
+    <table className="table-auto border-collapse w-full bg-white">
       <thead>
         <tr>
           {columns.map((column) => (
@@ -13,8 +13,11 @@ function TableList({ dataSource, columns, rowKey }) {
         </tr>
       </thead>
       <tbody>
-        {dataSource.map((data) => (
-          <tr key={data.id}>
+        {dataSource.map((data, index) => (
+          <tr
+            key={data.id}
+            className={classNames({ 'bg-gray-100': index % 2 === 0 })}
+          >
             {columns.map((column) => {
               const { align, width, render = () => {} } = column
 
