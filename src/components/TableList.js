@@ -1,13 +1,17 @@
-import { Link } from 'react-router-dom'
 import classNames from 'classnames'
-import range from 'lodash/range'
+
+import Pagination from './Pagination'
 
 function TableList({ dataSource, columns, pagination, onPaginationChange }) {
   return (
     <>
+      <div className="mx-auto my-8">
+        <Pagination pagination={pagination} />
+      </div>
+
       <table className="table-auto border-collapse w-full bg-white">
         <thead>
-          <tr>
+          <tr className="bg-gray-50">
             {columns.map((column) => (
               <th key={column.key} className="p-4 text-left">
                 {column.title}
@@ -44,24 +48,6 @@ function TableList({ dataSource, columns, pagination, onPaginationChange }) {
           ))}
         </tbody>
       </table>
-
-      <div className="flex flex-wrap mt-8">
-        {range(1, pagination.pages).map((page) =>
-          pagination.page === page ? (
-            <span key={page} className="flex-initial m-1 font-bold text-lg">
-              {page}
-            </span>
-          ) : (
-            <Link
-              key={page}
-              className="flex-initial m-1 text-blue-600 hover:underline cursor-pointer text-lg"
-              to={`?page=${page}`}
-            >
-              {page}
-            </Link>
-          )
-        )}
-      </div>
     </>
   )
 }
