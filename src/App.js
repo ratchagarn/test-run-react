@@ -19,7 +19,7 @@ function App() {
     <ReactQueryCacheProvider queryCache={queryCache}>
       <Router>
         <Switch>
-          <Route path="/" exact render={() => <Redirect to="" />} />
+          <Route path="/" exact render={() => <Redirect to="/home" />} />
           {routes.map((route, i) => (
             <Route
               key={route.path}
