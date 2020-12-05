@@ -19,23 +19,27 @@ function Pagination({ pagination }) {
   const selectablePages = range(startPage, endPage)
 
   return (
-    <div className="flex flex-wrap select-none">
+    <div className="flex flex-wrap items-baseline select-none">
       <PageLink page={prevPage} disabled={currentPage - 1 < 1}>
         ←
       </PageLink>
-      {currentPage - PAGE_RANGE > 1 && <PageLink page={1}>1</PageLink>}
+      {currentPage - PAGE_RANGE > 1 && (
+        <PageLink page={1} selected={currentPage === 1}>
+          1
+        </PageLink>
+      )}
       {currentPage > PAGE_RANGE * 2 && (
         <div className="flex-initial m-2 text-gray-400">...</div>
       )}
       {selectablePages.map((page) => (
-        <PageLink key={page} page={page} disabled={currentPage === page}>
+        <PageLink key={page} page={page} selected={currentPage === page}>
           {page}
         </PageLink>
       ))}
       {totalPages - currentPage >= PAGE_RANGE * 2 && (
         <div className="flex-initial m-2 text-gray-400">...</div>
       )}
-      <PageLink page={totalPages} disabled={currentPage === totalPages}>
+      <PageLink page={totalPages} selected={currentPage === totalPages}>
         {totalPages}
       </PageLink>
       <PageLink page={nextPage} disabled={nextPage >= totalPages}>
@@ -56,9 +60,9 @@ Pagination.propTypes = {
 
 export default Pagination
 
-function PageLink({ children, page, className, disabled }) {
+function PageLink({ children, page, className, disabled, selected }) {
   let linkClassName =
-    'flex-initial m-2 text-blue-600 hover:underline cursor-pointer'
+    'flex-initial m-1 py-1 px-2 text-center text-blue-600 text-sm hover:bg-gray-100 rounded cursor-pointer transition-all'
 
   if (typeof className === 'string') {
     linkClassName += ' ' + className
@@ -67,7 +71,13 @@ function PageLink({ children, page, className, disabled }) {
   return (
     <>
       {disabled ? (
-        <span className="flex-initial m-2">{children}</span>
+        <div className="flex-initial m-1 py-1 px-2 text-center text-sm text-gray-300">
+          {children}
+        </div>
+      ) : selected ? (
+        <div className="flex-initial m-1 py-1 px-2 text-center bg-blue-500 text-sm text-white rounded">
+          {children}
+        </div>
       ) : (
         <Link className={linkClassName} to={`?page=${page}`}>
           {children}
